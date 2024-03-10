@@ -3,7 +3,33 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EECE57CE-F613-428F-A046-4CEDB75FD92B}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysisRules.ruleset = CodeAnalysisRules.ruleset
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContractAnalyzer.Core", "src\Core\ContractAnalyzer.Core.csproj", "{C94ECF34-FB3B-429C-BE0F-8A78E55DB740}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContractAnalyzer.Core.Tests", "tests\Core.Tests\ContractAnalyzer.Core.Tests.csproj", "{6C04CAB1-F0BC-4B83-A564-69CE4DE53B26}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C94ECF34-FB3B-429C-BE0F-8A78E55DB740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C94ECF34-FB3B-429C-BE0F-8A78E55DB740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C94ECF34-FB3B-429C-BE0F-8A78E55DB740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C94ECF34-FB3B-429C-BE0F-8A78E55DB740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C04CAB1-F0BC-4B83-A564-69CE4DE53B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C04CAB1-F0BC-4B83-A564-69CE4DE53B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C04CAB1-F0BC-4B83-A564-69CE4DE53B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C04CAB1-F0BC-4B83-A564-69CE4DE53B26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
