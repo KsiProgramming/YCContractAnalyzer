@@ -13,9 +13,11 @@ namespace ContractAnalyzer.ContractValidator.Tests
         [Fact]
         public void IsUnderAgeFromShouldBeTrueWhenUserBirthDateIsUnder18()
         {
-            var request = new ContractValidatorRequest(userBirthDate: new DateOnly(2000, 01, 01));
+            var userInformation = new UserInformation(default!, default!, dateOfBirth: new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc));
 
-            var result = request.IsUnderAgeFrom(new DateOnly(2017, 12, 31));
+            var request = new ContractValidatorRequest(userInformation: userInformation);
+
+            var result = request.IsUnderAgeFrom(new DateTime(2017, 12, 31, 0, 0, 0, DateTimeKind.Utc));
 
             result.Should().BeTrue();
         }
@@ -23,9 +25,11 @@ namespace ContractAnalyzer.ContractValidator.Tests
         [Fact]
         public void IsUnderAgeFromShouldBeFalseWhenUserBirthDateEquals18()
         {
-            var request = new ContractValidatorRequest(userBirthDate: new DateOnly(2000, 01, 01));
+            var userInformation = new UserInformation(default!, default!, dateOfBirth: new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc));
 
-            var result = request.IsUnderAgeFrom(new DateOnly(2018, 01, 01));
+            var request = new ContractValidatorRequest(userInformation: userInformation);
+
+            var result = request.IsUnderAgeFrom(new DateTime(2018, 01, 01, 0, 0, 0, DateTimeKind.Utc));
 
             result.Should().BeFalse();
         }
@@ -33,9 +37,11 @@ namespace ContractAnalyzer.ContractValidator.Tests
         [Fact]
         public void IsUnderAgeFromShouldBeTrueWhenUserBirthDateIsAbove18()
         {
-            var request = new ContractValidatorRequest(userBirthDate: new DateOnly(2000, 01, 01));
+            var userInformation = new UserInformation(default!, default!, dateOfBirth: new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc));
 
-            var result = request.IsUnderAgeFrom(new DateOnly(2018, 01, 02));
+            var request = new ContractValidatorRequest(userInformation: userInformation);
+
+            var result = request.IsUnderAgeFrom(new DateTime(2018, 01, 02, 0, 0, 0, DateTimeKind.Utc));
 
             result.Should().BeFalse();
         }
@@ -48,10 +54,12 @@ namespace ContractAnalyzer.ContractValidator.Tests
         [InlineData("2030-01-01", "2024-03-10", true)]
         public void IsUnderAge(string userBirthDateString, string fromDateString, bool expectedResult)
         {
-            var userBirthDate = DateOnly.Parse(userBirthDateString, default);
-            var fromDate = DateOnly.Parse(fromDateString, default);
+            var userBirthDate = DateTime.Parse(userBirthDateString, default);
+            var fromDate = DateTime.Parse(fromDateString, default);
 
-            var request = new ContractValidatorRequest(userBirthDate: userBirthDate);
+            var userInformation = new UserInformation(default!, default!, dateOfBirth: userBirthDate);
+
+            var request = new ContractValidatorRequest(userInformation: userInformation);
             var result = request.IsUnderAgeFrom(fromDate);
 
             result.Should().Be(expectedResult);

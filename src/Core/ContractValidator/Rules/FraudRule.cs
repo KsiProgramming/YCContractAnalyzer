@@ -1,28 +1,28 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UnderAgeRule.cs" company="KsiProgramming">
+// <copyright file="FraudRule.cs" company="KsiProgramming">
 // Copyright (c) KsiProgramming. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace ContractAnalyzer.ContractValidator.Rules
 {
-    public class UnderAgeRule
+    public class FraudRule
     {
-        private DateTime currentDate;
+        private bool isBannedPerson;
 
-        public UnderAgeRule(DateTime currentDate)
+        public FraudRule(bool isBannedPerson)
         {
-            this.currentDate = currentDate;
+            this.isBannedPerson = isBannedPerson;
         }
 
         public RuleResponse Check(ContractValidatorRequest request)
         {
-            if (request.IsUnderAgeFrom(this.currentDate))
+            if (this.isBannedPerson)
             {
                 return new RuleResponse(this.GetType().Name, true);
             }
 
-            return new RuleResponse(this.GetType().Name, default);
+            return new RuleResponse(this.GetType().Name, false);
         }
     }
 }

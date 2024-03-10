@@ -13,9 +13,11 @@ namespace ContractAnalyzer.ContractValidator.Tests
         [Fact]
         public void ShouldBeInitializedWithUserDateOfBirth()
         {
-            var request = new ContractValidatorRequest(userBirthDate: new DateOnly(2000, 01, 01));
+            var userInformation = new UserInformation(default!, default!, dateOfBirth: new DateTime(2000, 01, 01, 0, 0, 0, DateTimeKind.Utc));
 
-            request.UserBirthDate.Should().Be(DateOnly.FromDateTime(01.January(2000)));
+            var request = new ContractValidatorRequest(userInformation: userInformation);
+
+            request.UserInformation.dateOfBirth.Should().Be(01.January(2000));
         }
     }
 }

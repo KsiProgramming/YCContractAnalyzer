@@ -8,11 +8,13 @@ namespace ContractAnalyzer.ContractValidator
 {
     public class ContractValidatorRequest
     {
-        public ContractValidatorRequest(DateOnly userBirthDate)
+        public ContractValidatorRequest(UserInformation userInformation)
         {
-            this.UserBirthDate = userBirthDate;
+            this.UserInformation = userInformation;
         }
 
-        public DateOnly UserBirthDate { get; }
+        public UserInformation UserInformation { get; }
     }
+
+    public record UserInformation(string firstName, string lastName, DateTime dateOfBirth);
 }

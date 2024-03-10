@@ -8,12 +8,9 @@ namespace ContractAnalyzer.ContractValidator
 {
     public static class ContractValidatorRequestExtensions
     {
-        public static bool IsUnderAgeFrom(this ContractValidatorRequest request, DateOnly fromDate)
+        public static bool IsUnderAgeFrom(this ContractValidatorRequest request, DateTime fromDate)
         {
-            var birthDateDateTime = request.UserBirthDate.ToDateTime(default);
-            var fromDateDateTime = fromDate.ToDateTime(default);
-
-            var totalDays = fromDateDateTime.Subtract(birthDateDateTime).Days;
+            var totalDays = fromDate.Subtract(request.UserInformation.dateOfBirth).Days;
 
             var age = totalDays / 365.25;
             if (age < 18)
