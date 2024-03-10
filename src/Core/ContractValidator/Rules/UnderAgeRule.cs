@@ -8,16 +8,16 @@ namespace ContractAnalyzer.ContractValidator.Rules
 {
     public class UnderAgeRule
     {
-        private DateTime currentDate;
+        private readonly IsystemClock systemClock;
 
-        public UnderAgeRule(DateTime currentDate)
+        public UnderAgeRule(IsystemClock systemClock)
         {
-            this.currentDate = currentDate;
+            this.systemClock = systemClock;
         }
 
         public RuleResponse Check(ContractValidatorRequest request)
         {
-            if (request.IsUnderAgeFrom(this.currentDate))
+            if (request.IsUnderAgeFrom(this.systemClock.UtcNow.DateTime))
             {
                 return new RuleResponse(this.GetType().Name, true);
             }

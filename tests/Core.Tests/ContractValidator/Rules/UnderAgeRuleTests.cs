@@ -7,6 +7,7 @@
 namespace ContractAnalyzer.ContractValidator.Rules.Tests
 {
     using FluentAssertions;
+    using Moq;
 
     public class UnderAgeRuleTests
     {
@@ -17,12 +18,18 @@ namespace ContractAnalyzer.ContractValidator.Rules.Tests
 
             var request = new ContractValidatorRequest(userInformation: userInformation);
 
-            var rule = new UnderAgeRule(currentDate: new DateTime(2024, 03, 10, 0, 0, 0, DateTimeKind.Utc));
+            var systemClock = new Mock<IsystemClock>(MockBehavior.Strict);
+            systemClock.Setup(s => s.UtcNow)
+                .Returns(new DateTime(2024, 03, 10, 0, 0, 0, DateTimeKind.Utc));
+
+            var rule = new UnderAgeRule(systemClock: systemClock.Object);
 
             var result = rule.Check(request);
 
             result.Name.Should().Be("UnderAgeRule");
             result.IsInViolation.Should().Be(true);
+
+            systemClock.VerifyAll();
         }
 
         [Fact]
@@ -32,12 +39,18 @@ namespace ContractAnalyzer.ContractValidator.Rules.Tests
 
             var request = new ContractValidatorRequest(userInformation: userInformation);
 
-            var rule = new UnderAgeRule(currentDate: new DateTime(2024, 03, 10, 0, 0, 0, DateTimeKind.Utc));
+            var systemClock = new Mock<IsystemClock>(MockBehavior.Strict);
+            systemClock.Setup(s => s.UtcNow)
+                .Returns(new DateTime(2024, 03, 10, 0, 0, 0, DateTimeKind.Utc));
+
+            var rule = new UnderAgeRule(systemClock: systemClock.Object);
 
             var result = rule.Check(request);
 
             result.Name.Should().Be("UnderAgeRule");
             result.IsInViolation.Should().Be(false);
+
+            systemClock.VerifyAll();
         }
     }
 }

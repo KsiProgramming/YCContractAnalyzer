@@ -7,6 +7,7 @@
 namespace ContractAnalyzer.ContractValidator.Rules.Tests
 {
     using FluentAssertions;
+    using Moq;
 
     public class FraudRuleTests
     {
@@ -17,7 +18,12 @@ namespace ContractAnalyzer.ContractValidator.Rules.Tests
 
             var request = new ContractValidatorRequest(userInformation: userInformation);
 
-            var rule = new FraudRule(isBannedPerson: true);
+            var fraudDetectionProvider = new Mock<IFraudDetectionProvider>(MockBehavior.Strict);
+            fraudDetectionProvider
+                .Setup(f => f.IsFraudDetected(userInformation))
+                .Returns(true);
+
+            var rule = new FraudRule(fraudDetectionprovider: fraudDetectionProvider.Object);
 
             var result = rule.Check(request);
 
@@ -32,12 +38,19 @@ namespace ContractAnalyzer.ContractValidator.Rules.Tests
 
             var request = new ContractValidatorRequest(userInformation: userInformation);
 
-            var rule = new FraudRule(isBannedPerson: false);
+            var fraudDetectionProvider = new Mock<IFraudDetectionProvider>(MockBehavior.Strict);
+            fraudDetectionProvider
+                .Setup(f => f.IsFraudDetected(userInformation))
+                .Returns(false);
+
+            var rule = new FraudRule(fraudDetectionprovider: fraudDetectionProvider.Object);
 
             var result = rule.Check(request);
 
             result.Name.Should().Be("FraudRule");
             result.IsInViolation.Should().BeFalse();
+
+            fraudDetectionProvider.VerifyAll();
         }
     }
 }

@@ -8,16 +8,16 @@ namespace ContractAnalyzer.ContractValidator.Rules
 {
     public class FraudRule
     {
-        private bool isBannedPerson;
+        private readonly IFraudDetectionProvider fraudDetectionProvider;
 
-        public FraudRule(bool isBannedPerson)
+        public FraudRule(IFraudDetectionProvider fraudDetectionprovider)
         {
-            this.isBannedPerson = isBannedPerson;
+            this.fraudDetectionProvider = fraudDetectionprovider;
         }
 
         public RuleResponse Check(ContractValidatorRequest request)
         {
-            if (this.isBannedPerson)
+            if (this.fraudDetectionProvider.IsFraudDetected(request.UserInformation))
             {
                 return new RuleResponse(this.GetType().Name, true);
             }
