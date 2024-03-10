@@ -13,10 +13,10 @@ namespace ContractAnalyzer.ContractValidator.Tests
         [Fact]
         public void ShouldBeInitializedWithCorrectProperties()
         {
-            var rules = new RuleResponse(name: "Rule Number 1", isInViolation: true);
+            var rule = new RuleResponse(name: "Rule Number 1", isInViolation: true);
 
-            rules.Name.Should().Be("Rule Number 1");
-            rules.IsInViolation.Should().BeTrue();
+            rule.Name.Should().Be("Rule Number 1");
+            rule.IsInViolation.Should().BeTrue();
         }
     }
 }
