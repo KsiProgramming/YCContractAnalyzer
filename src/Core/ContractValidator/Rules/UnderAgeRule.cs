@@ -6,7 +6,7 @@
 
 namespace ContractAnalyzer.ContractValidator.Rules
 {
-    public class UnderAgeRule
+    public class UnderAgeRule : IContractRuleCheck<ContractValidatorRequest>
     {
         private readonly IsystemClock systemClock;
 

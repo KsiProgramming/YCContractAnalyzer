@@ -6,7 +6,7 @@
 
 namespace ContractAnalyzer.ContractValidator.Rules
 {
-    public class FraudRule
+    public class FraudRule : IContractRuleCheck<ContractValidatorRequest>
     {
         private readonly IFraudDetectionProvider fraudDetectionProvider;
 
