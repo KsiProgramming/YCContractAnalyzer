@@ -8,15 +8,15 @@ namespace ContractAnalyzer.ContractValidator
 {
     public static class ContractValidatorRequestExtensions
     {
-        public static bool IsMinorFrom(this ContractValidatorRequest request, DateOnly dateOnly)
+        public static bool IsUnderAgeFrom(this ContractValidatorRequest request, DateOnly fromDate)
         {
-            if (dateOnly.Year <= request.UserBirthDate.Year)
-            {
-                return false;
-            }
+            var birthDateDateTime = request.UserBirthDate.ToDateTime(default);
+            var fromDateDateTime = fromDate.ToDateTime(default);
 
-            var datesDiff = dateOnly.AddYears(-request.UserBirthDate.Year).AddMonths(-request.UserBirthDate.Month + 1);
-            if (datesDiff.Year < 18)
+            var totalDays = fromDateDateTime.Subtract(birthDateDateTime).Days;
+
+            var age = totalDays / 365.25;
+            if (age < 18)
             {
                 return true;
             }
